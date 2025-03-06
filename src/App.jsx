@@ -30,6 +30,12 @@ function App() {
       newTitle[0] = '여자 코트 추천';
       setTitle(newTitle);}}
       >코트 변경</button>
+
+      <button onClick={() => {
+        let newTitle = [...title];
+        newTitle.sort();
+        setTitle(newTitle);
+      }}>정렬</button>
       <h4>{ post }</h4>
     </div>
   )
