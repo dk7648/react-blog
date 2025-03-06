@@ -37,8 +37,21 @@ function App() {
         setTitle(newTitle);
       }}>정렬</button>
       <h4>{ post }</h4>
+      <Modal></Modal>
+      
+      
     </div>
   )
+}
+
+function Modal() {
+  return (
+    <div className="modal">
+        <h4>제목</h4>
+        <p>날짜</p>
+        <p>상세내용</p>
+    </div>
+  );
 }
 
 export default App
