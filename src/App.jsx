@@ -6,6 +6,7 @@ function App() {
   let post = '강남 우동 맛집';
   let [title, setTitle] = useState(['남자 코트 추천','강남 우동 맛집', '파이썬독학']);
   let [like, setLike] = useState(0);
+  let [modal, setModal] = useState(false);
 
   return (
     <div className="App">
@@ -22,7 +23,7 @@ function App() {
           <p>2월 17일 발행</p>
       </div>
       <div className="list">
-          <h4>{title[2]}</h4>
+          <h4 onClick={()=> {setModal(!modal)}}>{title[2]}</h4>
           <p>2월 17일 발행</p>
       </div>
     <button onClick={()=>{
@@ -37,7 +38,11 @@ function App() {
         setTitle(newTitle);
       }}>정렬</button>
       <h4>{ post }</h4>
-      <Modal></Modal>
+      {
+        modal ? <Modal/> : null
+      }
+
+      
       
       
     </div>
