@@ -5,7 +5,7 @@ import './App.css'
 function App() {
   let post = '강남 우동 맛집';
   let [title, setTitle] = useState(['남자 코트 추천','강남 우동 맛집', '파이썬독학']);
-  let [like, setLike] = useState(0);
+  let [like, setLike] = useState([0,0,0]);
   let [modal, setModal] = useState(false);
 
   return (
@@ -13,11 +13,23 @@ function App() {
       <div className="black-nav">
         <h4>BLOG</h4>
       </div>
-      <div className="list">
-          <h4>{title[0]} <span onClick={()=>{ setLike(like+1)}}>❤️</span> {like} </h4>
+    {
+      title.map(function(t, index) {
+        return (
+        <div className="list" key={index}>
+          <h4 onClick={()=> {setModal(!modal)}}> {index+1}: {t} 
+            <span onClick={()=>{ 
+              let copy = [...like]
+              copy[index] += 1
+              setLike(copy)}}>❤️
+            </span> {like[index]} 
+          </h4>
           <p>2월 17일 발행</p>
-      </div>
-
+        </div>
+        );
+      })
+      
+    }
       <div className="list">
           <h4>{title[1]}</h4>
           <p>2월 17일 발행</p>
