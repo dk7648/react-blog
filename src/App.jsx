@@ -3,9 +3,11 @@ import { useState } from "react";
 import "./App.css";
 
 function App() {
-  let [title, setTitle] = useState(["남자 코트 추천", "강남 우동 맛집", "파이썬독학"]);
-  let [like, setLike] = useState([0, 0, 0]);
+  let [title, setTitle] = useState(["첫 번째 게시글입니다.", "공지사항입니다.", "안녕하세요!!!"]);
+  let [content, setContent] = useState(["안녕하세요 첫 게시글 입니다.", "무분별한 게시글 작성 부탁드립니다.", "ㅎㅇㅎㅇ"]);
+  let [like, setLike] = useState([3, 2, 7]);
   let [modal, setModal] = useState([false, false, false]);
+  let [text, setText] = useState("");
 
   return (
     <div className="App">
@@ -22,24 +24,40 @@ function App() {
                 setModal(copy);
               }}
             >
-              {" "}
+              
               {index + 1}: {t}
               <span
-                onClick={() => {
+                onClick={(e) => {
+                  e.stopPropagation();
                   let copy = [...like];
                   copy[index] += 1;
                   setLike(copy);
                 }}
               >
                 ❤️
-              </span>{" "}
+              </span>
               {like[index]}
             </h4>
-            <p>2월 17일 발행</p>
-            {modal[index] ? <Modal title={title} setTitle={setTitle} i={index} /> : null}
+            <p>3월 6일 발행</p>
+            <button onClick={() => {
+              let newTitle = [...title]
+              newTitle.splice(index,1)
+              setTitle(newTitle)
+            }}>삭제</button>
+            {modal[index] ? <Modal title={title} setTitle={setTitle} content={content} setContent={setContent} i={index} /> : null}
           </div>
         );
       })}
+
+      <input type="text" onChange={(e) => { setText(e.target.value); console.log(text)}}/>
+      <button onClick={() => {
+        let copy = [...title]
+        copy.unshift(text)
+        like.unshift(0)
+        modal.unshift(false)
+        content.unshift("글 생성 테스트")
+        setTitle(copy)
+      }}>글쓰기</button>
     </div>
   );
 }
@@ -48,13 +66,16 @@ function Modal(props) {
   return (
     <div className="modal">
       <h4>{props.title[props.i]}</h4>
-      <p>{props.date}</p>
-      <p>{props.content}</p>
+      <p>{props.content[props.i]}</p>
       <button onClick={()=>{
-        let copy = [...props.title]
-        copy[props.i] = "여자 코트 추천"
-        props.setTitle(copy)
-      }}>글수정</button>
+        let copyTitle = [...props.title]
+        copyTitle[props.i] = "블라인드 처리 된 게시글입니다."
+        props.setTitle(copyTitle)
+
+        let copyContent = [...props.content]
+        copyContent[props.i] = "---"
+        props.setContent(copyContent)
+      }}>비공개처리</button>
     </div>
   );
 }
